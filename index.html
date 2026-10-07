@@ -55,21 +55,21 @@ audio{width:100%;margin-top:10px}
   <h2>Thông tin người đăng ký</h2>
 
   <label>Họ và tên <span style="color:#b00000">*</span></label>
-  <input id="name" autocomplete="name" placeholder="Nhập họ và tên">
+  <input id="name" autocomplete="name" placeholder="Nhập họ và tên" required>
 
   <div class="grid">
     <div>
-      <label>SN (năm sinh)</label>
-      <input id="birth" inputmode="numeric" maxlength="4" placeholder="Ví dụ: 1980">
+      <label>Năm sinh <span class="req">*</span></label>
+      <input id="birth" inputmode="numeric" maxlength="4" placeholder="Ví dụ: 1980" required>
     </div>
     <div>
-      <label>Chức danh</label>
-      <input id="position" placeholder="Nhập chức danh nếu có">
+      <label>Chức danh (nếu có)</label>
+      <input id="position" placeholder="Nhập chức danh (nếu có)">
     </div>
   </div>
 
-  <label>Địa chỉ</label>
-  <input id="address" autocomplete="street-address" placeholder="Nhập địa chỉ liên hệ">
+  <label>Địa chỉ <span class="req">*</span></label>
+  <input id="address" autocomplete="street-address" placeholder="Nhập địa chỉ liên hệ" required>
 
   <label>Nội dung phát biểu ý kiến <span style="color:#b00000">*</span></label>
   <textarea id="content" placeholder="Nhập nội dung phát biểu ý kiến hoặc bấm “Nói bằng giọng nói”..."></textarea>
@@ -115,7 +115,7 @@ audio{width:100%;margin-top:10px}
 
   <div class="notice" style="margin-top:12px">
     Chỉ gửi nội dung, hình ảnh, video và ghi âm phục vụ việc đăng ký/phát biểu tại Hội nghị.
-    Không gửi mật khẩu, mã OTP hoặc thông tin tài chính.
+    Không gửi mật khẩu hoặc thông tin tài chính.
   </div>
 
   <div class="row" style="justify-content:flex-end">
@@ -127,8 +127,6 @@ audio{width:100%;margin-top:10px}
 </div>
 
 <div class="footer">
-  NGƯỜI ĐĂNG KÝ<br>
-  (Ký, ghi rõ họ và tên)<br><br>
   Ghi chú: Phiếu đăng ký phát biểu gửi về cho BTC Hội nghị
 </div>
 
@@ -136,7 +134,7 @@ audio{width:100%;margin-top:10px}
 
 <script>
 /* GIỮ NGUYÊN WEB APP URL TỪ MÃ SẾP ĐƯA */
-const API_URL="https://script.google.com/macros/s/AKfycbxWMDlFYi9J1bHZrnBTUKjucgYmbp2K70KXYtADAotR3ihcRgCp3FFluQIkHSlS-Lyf/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbw5KwpCj8SRiwyzWF4DI0hRVoVj_sr2zRj4PfnPyQCIxHEA_O44mXhLegO7Y7R1Ng/exec";
 
 const $=id=>document.getElementById(id);
 let rec=null, base="", listening=false;
@@ -297,12 +295,12 @@ $("submit").onclick=async()=>{
   const address=$("address").value.trim();
   const content=$("content").value.trim();
 
-  if(!name||!content){
-    show("err","Vui lòng nhập Họ và tên và Nội dung phát biểu ý kiến.");
+  if(!name||!birth||!address||!content){
+    show("err","Vui lòng nhập đầy đủ Họ và tên, Năm sinh , Địa chỉ và Nội dung phát biểu ý kiến.");
     return;
   }
-  if(birth && !/^\d{4}$/.test(birth)){
-    show("err","SN (năm sinh) phải gồm 4 chữ số.");
+  if(!/^\d{4}$/.test(birth)){
+    show("err","Năm sinh phải gồm 4 chữ số.");
     return;
   }
 
